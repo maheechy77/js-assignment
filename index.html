@@ -65,8 +65,8 @@
 
                      <div class="col-md-4 status">
                         <h5>$<span id="subtotal">1278</span></h5>
-                        <h5>$<span id="tax">0</span></h5>
-                        <h5>$<span id="total">1278</span></h5>
+                        <h5>$<span id="tax">64</span></h5>
+                        <h5>$<span id="total">1342</span></h5>
                      </div>
                   </div>
                </div>
@@ -97,12 +97,22 @@
          document.getElementById(id).value=newValue;
          addItemValue(itemtotal);
          addItemValue(itemSubTotal);
-         addItemValue(ItemsTotal);
+         addItemTaxValue(ItemsTotal,'tax');
       }
       function addItemValue(id){
          const getItemValue = document.getElementById(id).innerText;
          const newItemValue=parseFloat(getItemValue)+1219;
-         document.getElementById(id).innerText=newItemValue;
+         document.getElementById(id).innerText=Math.round(newItemValue);
+      }
+      function addItemTaxValue(id,tax){
+         const getItemValue = document.getElementById(id).innerText;
+         const getTaxValue = document.getElementById(tax).innerText;
+         const newItemValue=parseFloat(getItemValue)+1219;
+         const addTax = 1219 * 5/100;
+         const totalTax=parseFloat(getTaxValue)+addTax;
+         const newTotalValue=addTax+newItemValue;
+         document.getElementById(id).innerText=Math.round(newTotalValue);
+         document.getElementById(tax).innerText=Math.round(totalTax);
       }
       function subValue(id,itemtotal,itemSubTotal,ItemsTotal){
          const getSubValue = document.getElementById(id).value;
@@ -113,13 +123,23 @@
             document.getElementById(id).value=newSubValue;
             subItemValue(itemtotal);
             subItemValue(itemSubTotal);
-            subItemValue(ItemsTotal);
+            subItemTaxValue(ItemsTotal,'tax');
          }
       }
-      function subItemValue(id){
+      function subItemValue(id,tax){
          const getItemValue = document.getElementById(id).innerText;
          const newItemValue=parseFloat(getItemValue)-1219;
-         document.getElementById(id).innerText=newItemValue;
+         document.getElementById(id).innerText=Math.round(newItemValue);
+      }
+      function subItemTaxValue(id,tax){
+         const getItemValue = document.getElementById(id).innerText;
+         const getTaxValue = document.getElementById(tax).innerText;
+         const addTax = 1219 * 5/100;
+         const newItemValue=parseFloat(getItemValue)-1219;
+         const newTotalValue = newItemValue-addTax;
+         const totalTax=parseFloat(getTaxValue)-addTax;
+         document.getElementById(id).innerText=Math.round(newTotalValue);
+         document.getElementById(tax).innerText=Math.round(totalTax);
       }
       // ADD and SUB Pone Case
 
@@ -132,7 +152,7 @@
       const subcase = document.getElementById('subCase');
       subcase.addEventListener('click', function(){
          console.log('Sub clicked!')
-         subCaaseValues('caseValue','item2total','subtotal','total');
+         subCaseValues('caseValue','item2total','subtotal','total');
       })
 
       function addCaseValues(id,itemtotal,itemSubTotal,ItemsTotal){
@@ -141,9 +161,19 @@
          document.getElementById(id).value=newValue;
          addCaseValue(itemtotal);
          addCaseValue(itemSubTotal);
-         addCaseValue(ItemsTotal);
+         addCaseTaxValue(ItemsTotal,'tax');
       }
-      function subCaaseValues(id,itemtotal,itemSubTotal,ItemsTotal){
+      function addCaseTaxValue(id,tax){
+         const getItemValue = document.getElementById(id).innerText;
+         const getTaxValue = document.getElementById(tax).innerText;
+         const newItemValue=parseFloat(getItemValue)+59;
+         const addTax = 59 * 5/100;
+         const totalTax=parseFloat(getTaxValue)+addTax;
+         const newTotalValue=addTax+newItemValue;
+         document.getElementById(id).innerText=Math.round(newTotalValue);
+         document.getElementById(tax).innerText=Math.round(totalTax);
+      }
+      function subCaseValues(id,itemtotal,itemSubTotal,ItemsTotal){
          const getSubValue = document.getElementById(id).value;
          if(parseFloat(getSubValue)<=1){
             alert("Can't deduct more than that");
@@ -152,8 +182,18 @@
             document.getElementById(id).value=newSubValue;
             subCaseValue(itemtotal);
             subCaseValue(itemSubTotal);
-            subCaseValue(ItemsTotal);
+            subCaseTaxValue(ItemsTotal,'tax');
          }
+      }
+      function subCaseTaxValue(id,tax){
+         const getItemValue = document.getElementById(id).innerText;
+         const getTaxValue = document.getElementById(tax).innerText;
+         const addTax = 59 * 5/100;
+         const newItemValue=parseFloat(getItemValue)-59;
+         const newTotalValue = newItemValue-addTax;
+         const totalTax=parseFloat(getTaxValue)-addTax;
+         document.getElementById(id).innerText=Math.round(newTotalValue);
+         document.getElementById(tax).innerText=Math.round(totalTax);
       }
 
       function subCaseValue(id){
