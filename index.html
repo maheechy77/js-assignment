@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i class="fas fa-minus" id="subItem"></i></button>
+                           <input type="text" class="form-control text-center" id="itemValue" value="1">
+                           <button class="btn btn-default"><i class="fas fa-plus" id="addItem"></i></button>
+                        </div>
+                        <h5>$<span id="itemtotal">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button class="btn btn-default"><i class="fas fa-minus" id="subCase"></i></button>
+                           <input type="text" class="form-control text-center" id="caseValue" value="1">
+                           <button class="btn btn-default"><i class="fas fa-plus" id="addCase"></i></button>
+
+                        </div>
+                        <h5>$<span id="item2total">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:(5% in Total Amount)</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="subtotal">1278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+      // ADD & SUB phone
+      const addItem = document.getElementById('addItem');
+      addItem.addEventListener('click', function(){
+         console.log('Add clicked!')
+         addValue('itemValue','itemtotal','subtotal','total');
+      });
+
+      const subItem = document.getElementById('subItem');
+      subItem.addEventListener('click', function(){
+         console.log('Sub clicked!')
+         subValue('itemValue','itemtotal','subtotal','total');
+      })
+
+      function addValue(id,itemtotal,itemSubTotal,ItemsTotal){
+         const getValue = document.getElementById(id).value;
+         const newValue=parseFloat(getValue)+1;
+         document.getElementById(id).value=newValue;
+         addItemValue(itemtotal);
+         addItemValue(itemSubTotal);
+         addItemValue(ItemsTotal);
+      }
+      function addItemValue(id){
+         const getItemValue = document.getElementById(id).innerText;
+         const newItemValue=parseFloat(getItemValue)+1219;
+         document.getElementById(id).innerText=newItemValue;
+      }
+      function subValue(id,itemtotal,itemSubTotal,ItemsTotal){
+         const getSubValue = document.getElementById(id).value;
+         if(parseFloat(getSubValue)<=1){
+            alert("Can't deduct more than that");
+         }else if(parseFloat(getSubValue)>1){
+            const newSubValue=parseFloat(getSubValue)-1;
+            document.getElementById(id).value=newSubValue;
+            subItemValue(itemtotal);
+            subItemValue(itemSubTotal);
+            subItemValue(ItemsTotal);
+         }
+      }
+      function subItemValue(id){
+         const getItemValue = document.getElementById(id).innerText;
+         const newItemValue=parseFloat(getItemValue)-1219;
+         document.getElementById(id).innerText=newItemValue;
+      }
+      // ADD and SUB Pone Case
+
+      const addcase = document.getElementById('addCase');
+      addcase.addEventListener('click', function(){
+         console.log('Add clicked!')
+         addCaseValues('caseValue','item2total','subtotal','total');
+      });
+
+      const subcase = document.getElementById('subCase');
+      subcase.addEventListener('click', function(){
+         console.log('Sub clicked!')
+         subCaaseValues('caseValue','item2total','subtotal','total');
+      })
+
+      function addCaseValues(id,itemtotal,itemSubTotal,ItemsTotal){
+         const getValue = document.getElementById(id).value;
+         const newValue=parseFloat(getValue)+1;
+         document.getElementById(id).value=newValue;
+         addCaseValue(itemtotal);
+         addCaseValue(itemSubTotal);
+         addCaseValue(ItemsTotal);
+      }
+      function subCaaseValues(id,itemtotal,itemSubTotal,ItemsTotal){
+         const getSubValue = document.getElementById(id).value;
+         if(parseFloat(getSubValue)<=1){
+            alert("Can't deduct more than that");
+         }else if(parseFloat(getSubValue)>1){
+            const newSubValue=parseFloat(getSubValue)-1;
+            document.getElementById(id).value=newSubValue;
+            subCaseValue(itemtotal);
+            subCaseValue(itemSubTotal);
+            subCaseValue(ItemsTotal);
+         }
+      }
+
+      function subCaseValue(id){
+         const getItemValue = document.getElementById(id).innerText;
+         const newItemValue=parseFloat(getItemValue)-59;
+         document.getElementById(id).innerText=newItemValue;
+      }
+
+      function addCaseValue(id){
+         const getItemValue = document.getElementById(id).innerText;
+         console.log(parseFloat(getItemValue));
+         const newItemValue=parseFloat(getItemValue)+59;
+         document.getElementById(id).innerText=newItemValue;
+      }
+
+   </script>   
+</body>
+
+</html>
